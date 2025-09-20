@@ -2,10 +2,11 @@
     $position = Route::currentRouteName() === 'home' ? 'fixed' : 'relative';
 @endphp
 
-<nav class="bg-white border-gray-200 w-full {{ $position }} z-10">
+<nav class="bg-white font-heading border-gray-200 w-full {{ $position }} z-10">
     <div class=" flex flex-wrap items-center justify-between px-20 p-4">
-        <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <span class="self-center text-2xl font-heading font-extrabold whitespace-nowrap">Gemilang</span>
+        <a href="https://gemilangmeubel.com/" class="flex items-center space-x-2 rtl:space-x-reverse">
+            <img src="/images/gemilanglogo.png" alt="gemilang meubel" class="w-10">
+            <span class="self-center text-2xl font-heading font-extrabold whitespace-nowrap text-red-500">GEMILANG</span>
         </a>
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <x-button 
@@ -34,7 +35,7 @@
         </div>
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
             <ul
-                class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white ">
+                class="flex flex-col font-bold p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
                 <li>
                     <a href="{{ route('home') }}"
                         class="block py-2 px-3 md:p-0 rounded-sm {{ Route::currentRouteName() === 'home' ? 'text-blue-600' : 'text-gray-900' }}">Home</a>

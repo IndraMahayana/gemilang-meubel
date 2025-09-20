@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Welcome to Our Company')
+@section('title', 'Gemilang Meubel & Electronic')
 
 @section('content')
     @include('partials.hero')
