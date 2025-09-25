@@ -38,6 +38,7 @@ class ProductController extends Controller
             'price' => 'nullable|integer|min:0',
             'image' => 'nullable|image|max:2048',
             'stock' => 'nullable|integer|min:0',
+            'rating' => 'nullable|numeric|min:0|max:5',
         ]);
 
         // auto-generate slug bila kosong
@@ -80,6 +81,7 @@ class ProductController extends Controller
             'price' => 'nullable|integer|min:0',
             'image' => 'nullable|image|max:2048',
             'stock' => 'nullable|integer|min:0',
+            'rating' => 'nullable|numeric|min:0|max:5',
         ]);
 
         if ($request->hasFile('image')) {
