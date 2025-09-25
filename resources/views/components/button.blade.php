@@ -12,6 +12,7 @@
         'red' => 'bg-red-700 hover:bg-red-800 text-white',
         'blue' => 'bg-blue-700 hover:bg-blue-800 text-white',
         'green' => 'bg-green-700 hover:bg-green-800 text-white',
+        'transparent' => 'bg-transparent',
     ];
 
     $color = $variants[$variant] ?? $variants['blue'];
