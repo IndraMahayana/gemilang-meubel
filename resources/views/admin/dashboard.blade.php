@@ -5,6 +5,8 @@
 </head>
 <body>
     <h1>Dashboard Admin</h1>
+    <a href="{{ route('admin.logout') }}">Logout</a>
+
 
     <a href="{{ route('admin.products.create') }}">+ Tambah Produk</a>
 
