@@ -39,7 +39,7 @@ Route::prefix('admin')->group(function () {
 // ==============================
 Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::get('/users', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/users', [AdminController::class, 'index'])->name('admin.dashboard.users');
     Route::get('/products', [AdminProductController::class, 'index'])->name('admin.products.index');
 
     // CRUD Produk
