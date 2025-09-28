@@ -7,6 +7,9 @@
     <div class="p-2 ml-64 mt-10">
         @if (session('success'))
             <p style="color: green;">{{ session('success') }}</p>
+            <script>
+                alert("{{ session('success') }}");
+            </script>
         @endif
         <div class="flex flex-row items-center justify-between mb-4">
             <h1 class="text-2xl font-bold">Products</h1>
@@ -45,8 +48,8 @@
                     @foreach ($products as $product)
                         <tr class="odd:bg-white even:bg-gray-50 border-b border-gray-200">
                             <td class="p-4">
-                                <img src="{{ asset('storage/' . $product->image) }}" class="w-16 md:w-32 max-w-full max-h-full"
-                                    alt="{{ $product->name }}">
+                                <img src="{{ asset('storage/' . $product->image) }}"
+                                    class="w-16 md:w-32 max-w-full max-h-full" alt="{{ $product->name }}">
                             </td>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                 {{ $product->name }}
@@ -70,7 +73,8 @@
                                     style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="font-medium text-red-600 hover:underline cursor-pointer" onclick="return confirm('Yakin hapus?')">Remove</button>
+                                    <button type="submit" class="font-medium text-red-600 hover:underline cursor-pointer"
+                                        onclick="return confirm('Yakin hapus?')">Remove</button>
                                 </form>
                             </td>
                         </tr>
