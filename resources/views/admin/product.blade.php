@@ -1,7 +1,10 @@
 @extends('layouts.admin')
 
+<x-admin-navbar></x-admin-navbar>
+<x-sidebar></x-sidebar>
+
 @section('content')
-    <div class="p-2">
+    <div class="p-2 ml-64 mt-10">
         @if (session('success'))
             <p style="color: green;">{{ session('success') }}</p>
         @endif
@@ -42,7 +45,7 @@
                     @foreach ($products as $product)
                         <tr class="odd:bg-white even:bg-gray-50 border-b border-gray-200">
                             <td class="p-4">
-                                <img src="{{ $product->image }}" class="w-16 md:w-32 max-w-full max-h-full"
+                                <img src="{{ asset('storage/' . $product->image) }}" class="w-16 md:w-32 max-w-full max-h-full"
                                     alt="{{ $product->name }}">
                             </td>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">

@@ -49,7 +49,7 @@ class ProductController extends Controller
 
         Product::create($data);
 
-        return redirect()->route('admin.dashboard')->with('success', 'Produk berhasil ditambahkan');
+        return redirect()->route('admin.products')->with('success', 'Produk berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -89,7 +89,7 @@ class ProductController extends Controller
 
         $product->update($data);
 
-        return redirect()->route('admin.dashboard')->with('success', 'Produk berhasil diperbarui');
+        return redirect()->route('admin.products')->with('success', 'Produk berhasil diperbarui');
     }
 
     public function destroy($id)
@@ -97,6 +97,6 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->delete();
 
-        return redirect()->route('admin.dashboard')->with('success', 'Produk berhasil dihapus');
+        return redirect()->route('admin.products')->with('success', 'Produk berhasil dihapus');
     }
 }
