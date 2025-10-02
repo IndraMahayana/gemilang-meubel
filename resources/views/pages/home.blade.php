@@ -9,39 +9,45 @@
         <h1 class="text-4xl text-center font-heading uppercase font-extrabold mb-8">Produk Terbaru</h1>
         <div class="w-full flex flex-wrap gap-6 items-center justify-between pb-5">
             @foreach ($products as $product)
-                <x-card title="{{ $product->name }}" price="{{ $product->price }}" href="#" productImageUrl="/images/{{ $product->image }}">
+                <x-card title="{{ $product->name }}" price="{{ $product->price }}" href="#"
+                    productImageUrl="{{ asset('storage/' . $product->image) }}">
                     {{ $product->description }}
                 </x-card>
-            @endforeach
+@endforeach
         </div>
     </x-container>
 
     <x-container>
-        <h1 class="text-4xl text-center font-heading uppercase font-extrabold">Kenapa memilih kami?</h1>
-        <div class="w-full flex items-start justify-between gap-20 mt-10">
-            <div class="w-1/3">
-                <h2 class="text-xl uppercase font-heading font-bold mb-2">Produk Berkualitas Terjamin</h2>
-                <p class="text-lg font-body text-justify text-gray-500">
-                    Setiap produk yang kami hadirkan dipilih dengan teliti, mulai dari meubel kokoh hingga elektronik
-                    bergaransi resmi. Kami memastikan Anda mendapatkan barang yang awet, nyaman, dan bisa diandalkan dalam
-                    jangka panjang.
-                </p>
-            </div>
-            <div class="w-1/3">
-                <h2 class="text-xl uppercase font-heading font-bold mb-2">Harga Bersahabat</h2>
-                <p class="text-lg font-body text-justify text-gray-500">
-                    Kami menawarkan harga yang kompetitif dengan kualitas terbaik di kelasnya. Belanja di Gemilang berarti
-                    Anda bisa mendapatkan produk premium dengan harga yang tetap ramah di kantong.
-                </p>
-            </div>
-            <div class="w-1/3">
-                <h2 class="text-xl uppercase font-heading font-bold mb-2">Pelayanan Cepat & Ramah</h2>
-                <p class="text-lg font-body text-justify text-gray-500">
-                    Tim kami siap membantu Anda sejak proses pemesanan, pengiriman, hingga layanan purna jual. Dengan
-                    pelayanan yang cepat dan ramah, belanja jadi lebih mudah dan tanpa repot.
-                </p>
-            </div>
-        </div>
+        <h1 class="text-4xl
+                    text-center font-heading uppercase font-extrabold">Kenapa memilih kami?</h1>
+                    <div class="w-full flex items-start justify-between gap-20 mt-10">
+                        <div class="w-1/3">
+                            <h2 class="text-xl uppercase font-heading font-bold mb-2">Produk Berkualitas Terjamin</h2>
+                            <p class="text-lg font-body text-justify text-gray-500">
+                                Setiap produk yang kami hadirkan dipilih dengan teliti, mulai dari meubel kokoh hingga
+                                elektronik
+                                bergaransi resmi. Kami memastikan Anda mendapatkan barang yang awet, nyaman, dan bisa
+                                diandalkan dalam
+                                jangka panjang.
+                            </p>
+                        </div>
+                        <div class="w-1/3">
+                            <h2 class="text-xl uppercase font-heading font-bold mb-2">Harga Bersahabat</h2>
+                            <p class="text-lg font-body text-justify text-gray-500">
+                                Kami menawarkan harga yang kompetitif dengan kualitas terbaik di kelasnya. Belanja di
+                                Gemilang berarti
+                                Anda bisa mendapatkan produk premium dengan harga yang tetap ramah di kantong.
+                            </p>
+                        </div>
+                        <div class="w-1/3">
+                            <h2 class="text-xl uppercase font-heading font-bold mb-2">Pelayanan Cepat & Ramah</h2>
+                            <p class="text-lg font-body text-justify text-gray-500">
+                                Tim kami siap membantu Anda sejak proses pemesanan, pengiriman, hingga layanan purna jual.
+                                Dengan
+                                pelayanan yang cepat dan ramah, belanja jadi lebih mudah dan tanpa repot.
+                            </p>
+                        </div>
+                    </div>
     </x-container>
 
     <x-container>
@@ -62,9 +68,9 @@
                 <p class="font-body tracking-wide font-normal text-xl text-gray-200">Temukan
                     furnitur dan elektronik berkualitas untuk melengkapi gaya hidup Anda.</p>
                 <div class="flex flex-col space-y-4 items-center justify-center ">
-                    <p class="mb-4 font-body tracking-wide font-normal text-xl text-gray-200">Dapatkan promo & katalog terbaru:</p>
-                    <x-button href="#"
-                        variant="blue">
+                    <p class="mb-4 font-body tracking-wide font-normal text-xl text-gray-200">Dapatkan promo & katalog
+                        terbaru:</p>
+                    <x-button href="#" variant="blue">
                         Dapatkan Penawaran
                     </x-button>
                 </div>

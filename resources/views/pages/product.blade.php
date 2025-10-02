@@ -6,7 +6,7 @@
         <div class="w-full flex flex-wrap gap-6 items-center justify-between pb-5">
             @foreach ($products as $product)
                 <x-card title="{{ $product->name }}" price="{{ $product->price }}" href="#"
-                    productImageUrl="/images/products/product1.png">
+                    productImageUrl="{{ asset('storage/' . $product->image) }}">
                     We create modern, scalable web apps tailored for your business.
                 </x-card>
             @endforeach

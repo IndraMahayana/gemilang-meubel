@@ -6,7 +6,7 @@
     </a>
     <div class="p-4">
         <a href="{{$href}}">
-            <h5 class="text-xl font-semibold tracking-tight text-gray-900">{{$title}}</h5>
+            <h5 class="text-xl font-bold tracking-tight text-gray-900">{{$title}}</h5>
         </a>
         <div class="flex items-center mt-2.5 mb-5">
             <div class="flex items-center space-x-1 rtl:space-x-reverse">
