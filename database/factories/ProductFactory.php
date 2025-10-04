@@ -3,26 +3,35 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
- */
 class ProductFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
+        $names = [
+            'Kasur Spring Bed',
+            'Lemari Pakaian',
+            'Meja Makan Minimalis',
+            'Sofa Ruang Tamu',
+            'Rak Buku Kayu',
+            'Kursi Santai',
+            'Meja Belajar',
+            'Buffet TV',
+            'Lemari Dapur',
+            'Kasur Lipat'
+        ];
+
+        $name = $this->faker->randomElement($names);
+
         return [
-            'name' => $this->faker->words(2, true),
-            'slug' => $this->faker->slug(),
+            'name' => $name,
+            'slug' => Str::slug($name),
             'description' => $this->faker->sentence(),
-            'price' => $this->faker->numberBetween(100000, 5000000),
+            'price' => $this->faker->numberBetween(500000, 5000000),
             'image' => 'products/' . $this->faker->image('public/images/products', 400, 300, null, false),
             'stock' => $this->faker->numberBetween(1, 50),
+            'rating' => $this->faker->randomFloat(1, 3, 5),
         ];
     }
 }

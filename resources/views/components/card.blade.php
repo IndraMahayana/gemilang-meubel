@@ -1,10 +1,10 @@
 @props(['title' => '', 'href' => '#', 'productImageUrl' => '', 'price' => 'Rp -'])
 
-<div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm">
+<div class="bg-white border w-full h-fit border-gray-200 rounded-lg shadow-sm">
     <a href="{{$href}}">
-        <img class="rounded-t-lg" src="{{$productImageUrl}}" alt="{{$title}}" />
+        <img class="rounded-t-lg w-full h-80 object-cover" src="{{$productImageUrl}}" alt="{{$title}}" />
     </a>
-    <div class="p-4">
+    <div class="p-4 h-full flex flex-col items-stretch justify-between">
         <a href="{{$href}}">
             <h5 class="text-xl font-bold tracking-tight text-gray-900">{{$title}}</h5>
         </a>
