@@ -2,7 +2,7 @@
     $position = Route::currentRouteName() === 'home' ? 'fixed' : 'relative';
 @endphp
 
-<nav class="bg-white font-heading border-gray-200 w-full {{ $position }} z-10">
+<nav class="bg-white font-heading border-gray-200 w-full {{ $position }} z-10 shadow-sm">
     <div class=" flex flex-wrap items-center justify-between px-20 p-4">
         <a href="https://gemilangmeubel.com/" class="flex items-center space-x-2 rtl:space-x-reverse">
             <img src="/images/gemilanglogo.png" alt="gemilang meubel" class="w-10">
