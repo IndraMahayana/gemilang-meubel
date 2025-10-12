@@ -83,12 +83,17 @@
 
                             {{-- Password Strength Meter --}}
                             <div class="mt-2">
-                                <div id="pw-meter" class="w-full h-2 bg-gray-200 rounded overflow-hidden">
-                                    <div id="pw-meter-bar" class="h-full transition-all" style="width:0%"></div>
+                                <div id="pw-meter" class="relative w-full h-2 bg-gray-200 rounded overflow-hidden">
+                                    <div id="pw-meter-bar"
+                                        class="absolute left-0 top-0 h-full transition-all duration-300 ease-in-out bg-red-500"
+                                        style="width: 0%;">
+                                    </div>
                                 </div>
-                                <p id="pw-strength-text" class="text-xs mt-1">Kekuatan: <span
-                                        id="pw-strength-label">-</span></p>
+                                <p id="pw-strength-text" class="text-xs mt-1">
+                                    Kekuatan: <span id="pw-strength-label">-</span>
+                                </p>
                             </div>
+
 
                             {{-- Requirements checklist --}}
                             <ul id="pw-requirements" class="text-xs mt-2 list-none space-y-1">
@@ -142,22 +147,25 @@
 
 @push('scripts')
     <script>
-        function togglePassword(id, el) {
-            const input = document.getElementById(id);
-            const icon = el.querySelector('i');
-
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                input.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
+            // === TOGGLE PASSWORD ===
+            function togglePassword(id, el) {
+                const input = document.getElementById(id);
+                const icon = el.querySelector('i');
+                if (!input) return;
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            }
+            window.togglePassword = togglePassword;
+
+            // === TERMS CHECK ===
             const checkbox = document.getElementById('terms');
             const submitButton = document.querySelector('button[type="submit"]');
 
@@ -173,31 +181,11 @@
                     submitButton.classList.add('opacity-50', 'cursor-not-allowed');
                 }
             });
-        });
 
-        // Password Strength Meter
-        // Toggle show/hide password (reusable)
-        function togglePassword(id, el) {
-            const input = document.getElementById(id);
-            const icon = el.querySelector('i');
-            if (!input) return;
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                input.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
+            // === PASSWORD STRENGTH METER ===
             const password = document.getElementById('password');
             const passwordConfirmation = document.getElementById('password_confirmation');
             const currentPassword = document.getElementById('current_password');
-            const submitButton = document.querySelector('button[type="submit"]');
-
             const meterBar = document.getElementById('pw-meter-bar');
             const strengthLabel = document.getElementById('pw-strength-label');
 
@@ -207,10 +195,9 @@
             const reqNumber = document.getElementById('req-number');
             const reqSymbol = document.getElementById('req-symbol');
 
-            // Utility to mark requirement ok/ not ok (adds simple visual cue)
             function markReq(el, ok) {
                 el.dataset.ok = ok ? 'true' : 'false';
-                el.style.color = ok ? '#16a34a' : '#6b7280'; // green vs gray (Tailwind-ish)
+                el.style.color = ok ? '#16a34a' : '#6b7280';
                 el.style.textDecoration = ok ? 'line-through' : 'none';
             }
 
@@ -221,39 +208,48 @@
                     upper: /[A-Z]/.test(pw),
                     number: /\d/.test(pw),
                     symbol: /[!@#$%^&*()_\-+=\[\]{};:'"\\|,.<>\/?~`]/.test(pw)
-                };
-                // score 0..5
-                const score = Object.values(checks).reduce((s, v) => s + (v ? 1 : 0), 0);
-                return {
-                    checks,
-                    score
-                };
+            };
+            const score = Object.values(checks).reduce((s, v) => s + (v ? 1 : 0), 0);
+            return {
+                checks,
+                score
+            };
+        }
+
+        function updateMeter() {
+            const pw = password.value || '';
+
+            if (!pw) {
+                meterBar.style.width = '0%';
+                meterBar.className =
+                    'absolute left-0 top-0 h-full transition-all duration-300 ease-in-out bg-red-500';
+                strengthLabel.textContent = '-';
+                markReq(reqLength, false);
+                markReq(reqLower, false);
+                markReq(reqUpper, false);
+                markReq(reqNumber, false);
+                markReq(reqSymbol, false);
+                enableOrDisableSubmit();
+                return;
             }
 
-            function updateMeter() {
-                const pw = password.value || '';
-                if (!pw) {
-                    meterBar.style.width = '0%';
-                    strengthLabel.textContent = '-';
-                    markReq(reqLength, false);
-                    markReq(reqLower, false);
-                    markReq(reqUpper, false);
-                    markReq(reqNumber, false);
-                    markReq(reqSymbol, false);
-                    enableOrDisableSubmit();
-                    return;
-                }
+            const {
+                checks,
+                score
+            } = evaluatePassword(pw);
+            const percent = (score / 5) * 100;
+            meterBar.style.width = percent + '%';
 
-                const {
-                    checks,
-                    score
-                } = evaluatePassword(pw);
+            let color = 'bg-red-500';
+            if (score <= 1) color = 'bg-red-500';
+            else if (score === 2) color = 'bg-orange-500';
+            else if (score === 3) color = 'bg-yellow-500';
+            else if (score === 4) color = 'bg-blue-500';
+            else color = 'bg-green-500';
 
-                // map score to percent
-                const percent = (score / 5) * 100;
-                meterBar.style.width = percent + '%';
+            meterBar.className =
+            `absolute left-0 top-0 h-full transition-all duration-300 ease-in-out ${color}`;
 
-                // set label
                 let label = 'Very Weak';
                 if (score === 1) label = 'Very Weak';
                 if (score === 2) label = 'Weak';
@@ -262,7 +258,6 @@
                 if (score === 5) label = 'Strong';
                 strengthLabel.textContent = label;
 
-                // update checklist
                 markReq(reqLength, checks.length);
                 markReq(reqLower, checks.lower);
                 markReq(reqUpper, checks.upper);
@@ -272,21 +267,20 @@
                 enableOrDisableSubmit();
             }
 
-            // Disable submit when:
-            // - password is filled AND (requirements not met OR current_password empty OR confirmation mismatch)
             function enableOrDisableSubmit() {
                 const pwFilled = !!password.value;
-                const passesAll = (reqLength.dataset.ok === 'true' &&
+                const passesAll = (
+                    reqLength.dataset.ok === 'true' &&
                     reqLower.dataset.ok === 'true' &&
                     reqUpper.dataset.ok === 'true' &&
                     reqNumber.dataset.ok === 'true' &&
-                    reqSymbol.dataset.ok === 'true');
+                    reqSymbol.dataset.ok === 'true'
+                );
 
                 const confirmationMatches = !pwFilled || (password.value === passwordConfirmation.value);
                 const currentFilledIfChanging = !pwFilled || (currentPassword.value.trim().length > 0);
 
                 if (pwFilled) {
-                    // if changing password, require all to be true and confirmation to match and current password provided
                     if (passesAll && confirmationMatches && currentFilledIfChanging) {
                         submitButton.disabled = false;
                         submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
@@ -294,23 +288,14 @@
                         submitButton.disabled = true;
                         submitButton.classList.add('opacity-50', 'cursor-not-allowed');
                     }
-                } else {
-                    // not changing password: respect terms checkbox logic (if any)
-                    // if you previously disabled submit by default, allow it here (the page you had earlier disabled by default)
-                    // We'll enable submit here; if you want to keep it disabled until terms checked, keep your existing terms logic.
-                    submitButton.disabled = false;
-                    submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
                 }
             }
 
-            // event listeners
             password.addEventListener('input', updateMeter);
             passwordConfirmation.addEventListener('input', updateMeter);
             currentPassword.addEventListener('input', updateMeter);
 
-            // initialize
             updateMeter();
         });
-        // End Password Strength Meter
     </script>
 @endpush
