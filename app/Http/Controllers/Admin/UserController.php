@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -41,43 +42,69 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $users = User::findOrFail($id);
-        return view('admin.users.edit', ['users' => $users]);
+        $user = User::findOrFail($id);
+        return view('admin.users.edit', ['user' => $user]);
     }
 
     public function update(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
+        $user = User::findOrFail($id);
 
         $request->validate([
-            'name' => 'required',
-            // 'slug' => 'required|unique:products,slug,' . $product->id, // Hapus validasi slug
-            'description' => 'nullable',
-            'price' => 'required|numeric',
-            'image' => 'nullable|image',
-            'stock' => 'required|integer',
-            'rating' => 'nullable|numeric|min:0|max:5',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'current_password' => 'nullable',
+            'password' => [
+                'nullable',
+                'confirmed',
+                'min:8',
+                // Kombinasi huruf besar, huruf kecil, angka, dan simbol
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$/',
+            ],
+            'terms' => 'sometimes|accepted',
+        ], [
+            'password.regex' => 'Password harus mengandung huruf besar, huruf kecil, angka, dan simbol, serta minimal 8 karakter.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
         ]);
 
-        $data = $request->all();
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
 
-        // Generate slug otomatis dari nama
-        $data['slug'] = Str::slug($request->name);
+        // Jika user ingin mengganti password
+        if ($request->filled('password')) {
+            // Pastikan password lama diisi
+            if (!$request->filled('current_password')) {
+                return back()->withErrors([
+                    'current_password' => 'Silakan masukkan password lama Anda terlebih dahulu.'
+                ])->withInput();
+            }
 
-        // Pastikan slug unik (kecuali untuk produk yang sedang diupdate)
-        $count = Product::where('slug', $data['slug'])->where('id', '!=', $product->id)->count();
-        if ($count > 0) {
-            $data['slug'] .= '-' . ($count + 1);
+            // Cek apakah password lama benar
+            if (!Hash::check($request->current_password, $user->password)) {
+                return back()->withErrors([
+                    'current_password' => 'Password lama yang Anda masukkan salah.'
+                ])->withInput();
+            }
+
+            // Cek agar password baru tidak sama dengan password lama
+            if (Hash::check($request->password, $user->password)) {
+                return back()->withErrors([
+                    'password' => 'Password baru tidak boleh sama dengan password lama.'
+                ])->withInput();
+            }
+
+            // Simpan password baru
+            $data['password'] = Hash::make($request->password);
         }
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('images/products', 'public');
-        }
+        // Update data user
+        $user->update($data);
 
-        $product->update($data);
-
-        return redirect()->route('admin.users')->with('success', 'Produk berhasil diperbarui');
+        return redirect()->route('admin.users')->with('success', 'User berhasil diperbarui.');
     }
+
 
     public function destroy($id)
     {
