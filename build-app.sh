@@ -1,17 +1,23 @@
 #!/bin/bash
-# Make sure this file has executable permissions, run `chmod +x build-app.sh`
 
-# Exit the script if any command fails
-set -e
+echo "Building Laravel app..."
 
-# Build assets using NPM
+# Install dependencies
+composer install --no-dev --optimize-autoloader
+
+# Build front-end (Vite)
+npm install
 npm run build
 
-# Clear cache
-php artisan optimize:clear
-
-# Cache the various components of the Laravel application
+# Optimize Laravel (tanpa query DB)
 php artisan config:cache
-php artisan event:cache
 php artisan route:cache
 php artisan view:cache
+
+# ❌ Jangan jalankan ini di Railway build stage
+# php artisan migrate --force
+# php artisan optimize:clear
+# php artisan cache:clear
+# php artisan db:seed --force
+
+echo "Build complete!"
