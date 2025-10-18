@@ -16,7 +16,7 @@ return new class extends Migration
         $table->string('name');
         $table->string('slug')->unique();
         $table->text('description')->nullable();
-        $table->unsignedBigInteger('price')->nullable();
+        $table->double('price')->nullable();
         $table->string('image')->nullable();
         $table->integer('stock')->default(0);
         $table->decimal('rating', 3, 2)->default(0);

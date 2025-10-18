@@ -18,7 +18,7 @@
         </div>
         <div class="flex items-center justify-between">
             <span class="text-3xl font-bold text-gray-900">{{$price}}</span>
-            <x-button href="#" width="" height="h-10">
+            <x-button href="https://wa.me/6281234567890?text=Hello%20Gemilang%20Meubel%2C%20I%20would%20like%20to%20inquire%20about%20your%20products." width="" height="h-10">
                 Contact Us
             </x-button>
         </div>

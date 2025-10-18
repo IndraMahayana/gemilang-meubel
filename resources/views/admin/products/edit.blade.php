@@ -5,9 +5,6 @@
 
 @section('content')
     <div class="p-2 ml-64 mt-10">
-        <a href="{{ route('admin.products') }}">
-            <button class="bg-gray-500 text-white px-4 py-2 rounded cursor-pointer mb-4">← Back to Products</button>
-        </a>
         @if ($errors->any())
             <div class="mb-4 p-4 bg-red-100 text-red-700 rounded">
                 <ul class="list-disc list-inside">
@@ -40,7 +37,7 @@
                         <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Price</label>
                         <input type="number" name="price" id="price"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                            value="{{ $product->rating }}" required="">
+                            value="{{ $product->price }}" required="">
                     </div>
                     <div class="w-full">
                         <label for="rating" class="block mb-2 text-sm font-medium text-gray-900">Rating</label>

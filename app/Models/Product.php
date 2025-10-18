@@ -21,7 +21,12 @@ class Product extends Model
 
     public function getPriceRupiahAttribute()
     {
-        if ($this->price === null) return 'Rp -';
-        return 'Rp ' . number_format($this->price, 0, ',', '.');
+        if (is_null($this->price)) {
+            return 'Rp -';
+        }
+
+        $price = is_numeric($this->price) ? (int) floor((float) $this->price) : 0;
+
+        return 'Rp ' . number_format($price, 0, ',', '.');
     }
 }

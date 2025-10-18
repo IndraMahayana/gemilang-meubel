@@ -4,13 +4,13 @@
 
 <nav class="bg-white font-heading border-gray-200 w-full {{ $position }} z-10 shadow-sm">
     <div class=" flex flex-wrap items-center justify-between px-20 p-4">
-        <a href="https://gemilangmeubel.com/" class="flex items-center space-x-2 rtl:space-x-reverse">
+        <a href="{{ route('home') }}" class="flex items-center space-x-2 rtl:space-x-reverse">
             <img src="/images/gemilanglogo.png" alt="gemilang meubel" class="w-10">
             <span class="self-center text-2xl font-heading font-extrabold whitespace-nowrap text-red-500">GEMILANG</span>
         </a>
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <x-button 
-            href="#"
+            href="https://wa.me/6281234567890?text=Hello%20Gemilang%20Meubel%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
             variant="green">
                 <svg class="w-6 h-6 mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">

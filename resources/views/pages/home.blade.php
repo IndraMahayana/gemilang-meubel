@@ -9,7 +9,7 @@
         <h1 class="text-4xl text-center font-heading uppercase font-extrabold mb-8">Produk Terbaru</h1>
         <div class="w-full grid grid-cols-3 gap-6 pb-5">
             @foreach ($products as $product)
-                <x-card title="{{ $product->name }}" price="{{ $product->price }}" href="#"
+                <x-card title="{{ $product->name }}" price="{{ $product->price_rupiah }}" href="#"
                     productImageUrl="{{ asset('storage/' . $product->image) }}">
                     {{ $product->description }}
                 </x-card>
@@ -56,21 +56,21 @@
                 <a href="#"
                     class="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm rounded-full bg-blue-900 text-blue-300 hover:bg-blue-800">
                     <span class="text-xs bg-blue-600 rounded-full text-white px-4 py-1.5 me-3">Baru</span> <span
-                        class="text-sm font-medium">Ayo kunjungi atau hubungi Gemilang meubel & electronic</span>
+                        class="text-sm uppercase font-medium">Ayo kunjungi atau hubungi Gemilang meubel & electronic</span>
                     <svg class="w-2.5 h-2.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         fill="none" viewBox="0 0 6 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="m1 9 4-4-4-4" />
                     </svg>
                 </a>
-                <h1 class="mb-4 text-5xl font-heading font-extrabold tracking-tight leading-none text-white">
+                <h1 class="mb-4 text-4xl font-heading font-extrabold tracking-tight leading-none text-white uppercase">
                     Hadirkan Kenyamanan & Modern di Rumah Anda</h1>
-                <p class="font-body tracking-wide font-normal text-xl text-gray-200">Temukan
+                <p class="font-body tracking-wide font-normal text-lg text-gray-200">Temukan
                     furnitur dan elektronik berkualitas untuk melengkapi gaya hidup Anda.</p>
                 <div class="flex flex-col space-y-4 items-center justify-center ">
                     <p class="mb-4 font-body tracking-wide font-normal text-xl text-gray-200">Dapatkan promo & katalog
                         terbaru:</p>
-                    <x-button href="#" variant="blue">
+                    <x-button class="uppercase" href="https://wa.me/6281234567890?text=Hello%20Gemilang%20Meubel%2C%20I%20would%20like%20to%20inquire%20about%20your%20products%discount." variant="blue">
                         Dapatkan Penawaran
                     </x-button>
                 </div>

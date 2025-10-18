@@ -10,7 +10,7 @@
         </p>
         <div class="flex flex-col space-y-4 space-x-4 sm:flex-row sm:justify-center sm:space-y-0">
             <x-button 
-                href="#" 
+                href="{{ route('products') }}" 
                 fontSize="text-xl"
                 width="w-80"
                 height='h-fit'>

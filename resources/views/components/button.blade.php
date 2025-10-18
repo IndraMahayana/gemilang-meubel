@@ -19,7 +19,6 @@
 @endphp
 
 <a href="{{ $href }}"
-   target="_blank"
    class="flex items-center justify-center focus:outline-none font-heading font-bold rounded-lg text-sm px-4 py-2 text-center {{ $color }} {{ $height }} {{ $width }} {{$fontSize}} {{$class}}">
    {{ $slot }}
 </a>
